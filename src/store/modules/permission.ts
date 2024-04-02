@@ -29,6 +29,7 @@ export const usePermissionStore = defineStore('permission', {
       try {
         // 发起菜单权限请求 获取菜单列表
         const asyncRoutes: Array<RouteItem> = (await getMenuList()).list;
+        // 将获取的路由菜单转换为正常的注册路由
         this.asyncRoutes = transformObjectToRoute(asyncRoutes);
         await this.initRoutes();
         return this.asyncRoutes;

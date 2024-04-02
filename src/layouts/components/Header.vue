@@ -21,18 +21,18 @@
           <search v-if="layout !== 'side'" :layout="layout" />
 
           <!-- 全局通知 -->
-          <notice />
+          <!--          <notice />-->
 
-          <t-tooltip placement="bottom" :content="$t('layout.header.code')">
-            <t-button theme="default" shape="square" variant="text" @click="navToGitHub">
-              <t-icon name="logo-github" />
-            </t-button>
-          </t-tooltip>
-          <t-tooltip placement="bottom" :content="$t('layout.header.help')">
-            <t-button theme="default" shape="square" variant="text" @click="navToHelper">
-              <t-icon name="help-circle" />
-            </t-button>
-          </t-tooltip>
+          <!--          <t-tooltip placement="bottom" :content="$t('layout.header.code')">-->
+          <!--            <t-button theme="default" shape="square" variant="text" @click="navToGitHub">-->
+          <!--              <t-icon name="logo-github" />-->
+          <!--            </t-button>-->
+          <!--          </t-tooltip>-->
+          <!--          <t-tooltip placement="bottom" :content="$t('layout.header.help')">-->
+          <!--            <t-button theme="default" shape="square" variant="text" @click="navToHelper">-->
+          <!--              <t-icon name="help-circle" />-->
+          <!--            </t-button>-->
+          <!--          </t-tooltip>-->
           <t-dropdown trigger="click">
             <t-button theme="default" shape="square" variant="text">
               <translate-icon />
@@ -92,7 +92,7 @@ import { useSettingStore, useUserStore } from '@/store';
 import type { MenuRoute, ModeType } from '@/types/interface';
 
 import MenuContent from './MenuContent.vue';
-import Notice from './Notice.vue';
+// import Notice from './Notice.vue';
 import Search from './Search.vue';
 
 const props = defineProps({
@@ -176,13 +176,13 @@ const handleLogout = () => {
   });
 };
 
-const navToGitHub = () => {
-  window.open('https://github.com/tencent/tdesign-vue-next-starter');
-};
-
-const navToHelper = () => {
-  window.open('http://tdesign.tencent.com/starter/docs/get-started');
-};
+// const navToGitHub = () => {
+//   window.open('https://github.com/tencent/tdesign-vue-next-starter');
+// };
+//
+// const navToHelper = () => {
+//   window.open('http://tdesign.tencent.com/starter/docs/get-started');
+// };
 </script>
 <style lang="less" scoped>
 .@{starter-prefix}-header {
