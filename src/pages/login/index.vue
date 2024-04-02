@@ -19,7 +19,7 @@
       <tdesign-setting />
     </div>
 
-    <footer class="copyright">Copyright @ 2021-2023 Tencent. All Rights Reserved</footer>
+    <footer class="copyright">豫ICP备2024059362号-1</footer>
   </div>
 </template>
 <script lang="ts">
