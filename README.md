@@ -1,94 +1,65 @@
-<p style="display:flex; justify-content: center">
+简体中文 | [English](./README.md)
 
-</p>
-<p align="center">
-  <a href="https://tdesign.tencent.com/starter/vue-next/#/dashboard/base" target="_blank">
-    <img alt="TDesign Logo" width="200" src="https://tdesign.gtimg.com/starter/brand-logo.svg">
-  </a>
-</p>
+### 项目简介
 
-<p align="center">
-  <a href="https://nodejs.org/en/about/releases/"><img src="https://img.shields.io/node/v/vite.svg" alt="node compatility"></a>
-  <a href="https://github.com/Tencent/tdesign-vue-next/blob/develop/LICENSE">
-    <img src="https://img.shields.io/npm/l/tdesign-vue-next.svg?sanitize=true" alt="License">
-  </a>
-</p>
 
-English | [简体中文](./README-zh_CN.md) 
-### Introduction
+### 特性
 
-TDesign Vue Next Starter is a TDesign-based developed with `Vue 3`, `Vite`, `Pinia`, `TypeScript`. It can be customized theme configuration, and aims to provide project out-of-the-box, configuration-style middle and background projects.
+- 支持暗黑模式
+- 自定义主题颜色
+- 多种空间布局
 
-<p>
-  <a href="http://tdesign.tencent.com/starter/vue-next/">Live Preview</a>
-  ·
-  <a href="https://tdesign.tencent.com/starter/">Documentation</a>
-</p>
+### 使用
+### 开发
 
-<img src="docs/starter.png">
-
-### Features
-
-- Various provided pages for develop
-- Complete directory structure for develop
-- Code specification configuration
-- Support dark mode
-- Custom theme colors
-- Various space layouts
-- Mock data scheme
-
-### Usage
-
-> Initialize project with our CLI tool `tdesign-starter-cli` 
-
-```bash
-## install tdesign-starter-cli
-npm i tdesign-starter-cli@latest -g
-
-## create project
-td-starter init
-```
-
-### Develop
-
-```bash
-## install dependencies
+``` bash
+## 安装依赖
 npm install
 
-## set up
+## 启动项目
 npm run dev
 ```
 
-### Build
+### 各级目录分层结构（src目录）
+
+### 构建
 
 ```bash
-## build
+## 构建正式环境
 npm run build
 
-## build for test
+## 构建测试环境
 npm run build:test
 ```
 
+### 其他
 
-### Contributing Guide
+```bash
+## 预览构建产物
+npm run preview
 
-We welcome contributions to our project. Create your [Issue](https://github.com/tencent/tdesign-vue-next-starter/issues/new/choose) or Submit your [Pull Request](https://github.com/Tencent/tdesign-vue-next-starter/pulls).
+## 代码格式检查
+npm run lint
 
-#### Commit Specification
+## 代码格式检查与自动修复
+npm run lint:fix
 
-- [Angular Convention](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-angular)
-- [Vue Style Guide](https://v3.vuejs.org/style-guide/#rule-categories)
+## style格式检查
+npm run stylelint
 
-### Browser Support
-
-| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br> IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Edge >=84                                                                                                                                                                                                        | Firefox >=83                                                                                                                                                                                                      | Chrome >=84                                                                                                                                                                                                   | Safari >=14.1                                                                                                                                                                                                 |
-
-### Community Versions
-
-There are kinds of community versions of starter-kit based on TDesign Vue Next, visit [community-link](https://tdesign.tencent.com/starter/docs/vue-next/community-link) for more detail. If you developed a community versions of tdesign starter, please create a issue or submit a pull request to let us know 😊.
-
-### License
-
-The MIT License. Please see [the license file](LICENSE) for more information.
+## style格式检查与自动修复
+npm run stylelint:fix
+```
+## commit规范
+Bug 修复-fix(组件名): 修复描述
+功能添加-feat(组件名): 新增功能描述
+性能优化-perf(组件名): 性能优化描述
+代码重构-refactor(组件名): 重构描述
+文档更新-docs(组件名): 文档更新描述
+测试添加或修改 -test(组件名): 测试添加或修改描述
+配置或工具修改 -chore(组件名): 配置或工具修改描述
+移除功能 -remove(组件名): 移除功能描述
+其他：对于一些无法明确分类的变更，你可以使用以下模板
+misc: 其他描述
+临时回退更改：如果你需要临时回退某个更改，可以使用以下模板
+revert: 回退描述

@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import { RouteRecordRaw } from 'vue-router';
 
 import { RouteItem } from '@/api/model/permissionModel';
-import { getMenuList } from '@/api/permission';
+// import { getMenuList } from '@/api/permission';
 import router, { fixedRouterList, homepageRouterList } from '@/router';
 import { store } from '@/store';
 import { transformObjectToRoute } from '@/utils/route';
@@ -28,7 +28,8 @@ export const usePermissionStore = defineStore('permission', {
     async buildAsyncRoutes() {
       try {
         // 发起菜单权限请求 获取菜单列表
-        const asyncRoutes: Array<RouteItem> = (await getMenuList()).list;
+        // const asyncRoutes: Array<RouteItem> = (await getMenuList()).list;
+        const asyncRoutes: Array<RouteItem> = [] ;
         // 将获取的路由菜单转换为正常的注册路由
         this.asyncRoutes = transformObjectToRoute(asyncRoutes);
         await this.initRoutes();

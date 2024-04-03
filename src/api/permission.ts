@@ -4,7 +4,7 @@
 // const Api = {
 //   MenuList: '/get-menu-list-i18n',
 // };
-
+// 获取动态路由菜单的方法
 export function getMenuList() {
   return { list: [] };
   // return request.get<MenuListResult>({
