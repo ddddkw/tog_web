@@ -9,7 +9,6 @@
           <t-button theme="default" shape="square" variant="text" @click="changeCollapsed">
             <t-icon class="collapsed-icon" name="view-list" />
           </t-button>
-          <search :layout="layout" />
         </div>
       </template>
       <template v-if="layout !== 'side'" #default>
@@ -19,20 +18,6 @@
         <div class="operations-container">
           <!-- 搜索框 -->
           <search v-if="layout !== 'side'" :layout="layout" />
-
-          <!-- 全局通知 -->
-          <!--          <notice />-->
-
-          <!--          <t-tooltip placement="bottom" :content="$t('layout.header.code')">-->
-          <!--            <t-button theme="default" shape="square" variant="text" @click="navToGitHub">-->
-          <!--              <t-icon name="logo-github" />-->
-          <!--            </t-button>-->
-          <!--          </t-tooltip>-->
-          <!--          <t-tooltip placement="bottom" :content="$t('layout.header.help')">-->
-          <!--            <t-button theme="default" shape="square" variant="text" @click="navToHelper">-->
-          <!--              <t-icon name="help-circle" />-->
-          <!--            </t-button>-->
-          <!--          </t-tooltip>-->
           <t-dropdown trigger="click">
             <t-button theme="default" shape="square" variant="text">
               <translate-icon />

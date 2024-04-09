@@ -3,7 +3,10 @@
     <t-menu :class="menuCls" :theme="theme" :value="active" :collapsed="collapsed" :default-expanded="defaultExpanded">
       <template #logo>
         <span v-if="showLogo" :class="`${prefix}-side-nav-logo-wrapper`" @click="goHome">
-          <component :is="getLogo()" :class="logoCls" />
+          <img class="icon" src="../../assets/icon.png">
+          <span  v-if="!collapsed" class="icon_title">
+            Tog Web
+          </span>
         </span>
       </template>
       <menu-content :nav-data="menu" />
@@ -20,9 +23,7 @@ import union from 'lodash/union';
 import type { PropType } from 'vue';
 import { computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-
-import AssetLogoFull from '@/assets/assets-logo-full.svg?component';
-import AssetLogo from '@/assets/assets-t-logo.svg?component';
+;
 import { prefix } from '@/config/global';
 import { getActive, getRoutesExpanded } from '@/router';
 import { useSettingStore } from '@/store';
@@ -88,14 +89,6 @@ const sideNavCls = computed(() => {
     },
   ];
 });
-const logoCls = computed(() => {
-  return [
-    `${prefix}-side-nav-logo-${collapsed.value ? 't' : 'tdesign'}-logo`,
-    {
-      [`${prefix}-side-nav-dark`]: sideMode.value,
-    },
-  ];
-});
 const versionCls = computed(() => {
   return [
     `version-container`,
@@ -137,10 +130,16 @@ const goHome = () => {
   router.push('/dashboard/base');
 };
 
-const getLogo = () => {
-  if (collapsed.value) return AssetLogo;
-  return AssetLogoFull;
-};
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.icon {
+  height: 45px;
+  width: 45px;
+}
+.icon_title{
+  font-size: 30px;
+  font-weight: bold;
+  font-style: italic;
+}
+</style>

@@ -7,7 +7,7 @@ const env = import.meta.env.MODE || 'development';
 const homepageModules = import.meta.glob('./modules/**/homepage.ts', { eager: true });
 
 // 导入modules非homepage相关固定路由
-const fixedModules = import.meta.glob('./modules/**/!(homepage).ts', { eager: true });
+const fixedModules = import.meta.glob('./modules/**/user.ts', { eager:true });
 
 // 其他固定路由
 const defaultRouterList: Array<RouteRecordRaw> = [
@@ -25,7 +25,7 @@ const defaultRouterList: Array<RouteRecordRaw> = [
 export const homepageRouterList: Array<RouteRecordRaw> = mapModuleRouterList(homepageModules);
 export const fixedRouterList: Array<RouteRecordRaw> = mapModuleRouterList(fixedModules);
 
-export const allRoutes = [...homepageRouterList, ...fixedRouterList, ...defaultRouterList];
+export const allRoutes = [...homepageRouterList,...fixedRouterList, ...defaultRouterList];
 
 // 固定路由模块转换为路由
 export function mapModuleRouterList(modules: Record<string, unknown>): Array<RouteRecordRaw> {
