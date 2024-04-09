@@ -8,11 +8,11 @@ export default [
     path: '/dashboard',
     component: Layout,
     redirect: '/dashboard/base',
-    name: 'dashboard',
+    name: 'myVlogs',
     meta: {
       title: {
         zh_CN: '我的博客',
-        en_US: 'Dashboard',
+        en_US: 'myVlogs',
       },
       icon: shallowRef(DashboardIcon),
       orderNo: 0,
@@ -20,12 +20,12 @@ export default [
     children: [
       {
         path: 'base',
-        name: 'DashboardBase',
+        name: 'myVlogs',
         component: () => import('@/pages/dashboard/base/index.vue'),
         meta: {
           title: {
             zh_CN: '我的博客',
-            en_US: 'Overview',
+            en_US: 'myVlogs',
           },
         },
       },
