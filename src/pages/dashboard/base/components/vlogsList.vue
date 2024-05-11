@@ -1,8 +1,12 @@
 <template>
   <div>
     <t-card :bordered="false" hover-shadow class="cardBody">
-      <t-list :split="true">
+      <t-list :split="true" class="listBody">
         <t-list-item>
+          <template #action>
+            <t-link theme="primary" hover="color" style="margin-left: 16px"> 编辑 </t-link>
+            <t-link theme="primary" hover="color" style="margin-left: 16px"> 删除 </t-link>
+          </template>
           <t-list-item-meta title="列表主内容" description="列表内容列表内容" />
         </t-list-item>
       </t-list>
@@ -20,6 +24,7 @@
   </div>
 </template>
 <script setup lang="ts">
+import {queryVlogsList} from "./vlogPage"
 import { ref,onMounted } from "vue"
 let current = ref(1)
 let pageSize = ref(10)
@@ -27,12 +32,6 @@ let pageSize = ref(10)
 onMounted(()=>{
   queryVlogsList()
 })
-
-const queryVlogsList=()=>{
-  this.$http.post().then(res=>{
-
-  })
-}
 
 const onChange=(val)=>{
 
@@ -49,6 +48,9 @@ const onCurrentChange=(val)=>{
    margin-top: 20px;
  }
  .cardBody{
-
+   height: calc(100vh - 150px);
+ }
+ .listBody{
+   height: calc(100vh - 250px);
  }
 </style>

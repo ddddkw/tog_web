@@ -32,7 +32,7 @@ export default {
     title: 'browser is incompatible',
     subtitle: 'the browser version you are using is too outdated to open the current webpage.',
     back: 'Back to homepage',
-    recommend: 'TDesign Starter recommend the following browser',
+    recommend: 'Tog Web recommend the following browser',
   },
   networkError: {
     title: 'Network Error',

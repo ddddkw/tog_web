@@ -32,7 +32,7 @@ export default {
     title: '浏览器不兼容',
     subtitle: '抱歉，您正在使用的浏览器版本过低，无法打开当前网页。',
     back: '回到首页',
-    recommend: 'TDesign Starter 推荐以下主流浏览器',
+    recommend: 'Tog Web 推荐以下主流浏览器',
   },
   networkError: {
     title: '网络异常',

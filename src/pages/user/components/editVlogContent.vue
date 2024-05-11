@@ -1,5 +1,9 @@
 <template>
   <div>
+    <t-button theme="primary" style="margin-bottom: 10px" @click="reBack">
+      <template #icon><icon-font variant="dashed" name="arrow-left"/></template>
+      back
+    </t-button>
     <div style="border: 1px solid #ccc">
       <Toolbar
         style="border-bottom: 1px solid #ccc"
@@ -8,7 +12,7 @@
         :mode="mode"
       />
       <Editor
-        style="height: 500px; overflow-y: hidden;"
+        style="height: calc(100vh - 230px); overflow-y: hidden;"
         v-model="valueHtml"
         :defaultConfig="editorConfig"
         :mode="mode"
@@ -19,6 +23,7 @@
 </template>
 
 <script lang="ts">
+import { IconFont  } from 'tdesign-icons-vue-next';
 export default {
   name: 'DashboardBase',
 };
@@ -27,9 +32,9 @@ export default {
 <script setup lang="ts">
 import '@wangeditor/editor/dist/css/style.css' // 引入 css
 
-import { onBeforeUnmount, ref, shallowRef, onMounted } from 'vue'
+import {onBeforeUnmount, ref, shallowRef, onMounted, defineComponent} from 'vue'
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
-
+const emit = defineEmits([ "reBack" ]);
 const mode= "default"
 // 编辑器实例，必须用 shallowRef
 const editorRef = shallowRef()
@@ -56,7 +61,9 @@ onBeforeUnmount(() => {
 const handleCreated = (editor) => {
   editorRef.value = editor // 记录 editor 实例，重要！
 }
-
+const reBack=()=>{
+  emit('reBack');
+}
 </script>
 
 <style scoped>

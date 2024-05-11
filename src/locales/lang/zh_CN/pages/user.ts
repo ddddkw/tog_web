@@ -1,5 +1,5 @@
 export default {
-  markDay: '下午好，今天是你加入鹅厂的第 100 天',
+  markDay: '你今天学习了吗',
   personalInfo: {
     title: '个人信息',
     position: '港澳业务拓展组员工 直客销售 ',
