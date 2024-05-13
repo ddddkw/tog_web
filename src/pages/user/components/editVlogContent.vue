@@ -1,24 +1,31 @@
 <template>
   <div>
-    <t-button theme="primary" style="margin-bottom: 10px" @click="reBack">
-      <template #icon><icon-font variant="dashed" name="arrow-left"/></template>
-      back
-    </t-button>
-    <div style="border: 1px solid #ccc">
-      <Toolbar
-        style="border-bottom: 1px solid #ccc"
-        :editor="editorRef"
-        :defaultConfig="toolbarConfig"
-        :mode="mode"
-      />
-      <Editor
-        style="height: calc(100vh - 230px); overflow-y: hidden;"
-        v-model="valueHtml"
-        :defaultConfig="editorConfig"
-        :mode="mode"
-        @onCreated="handleCreated"
-      />
-    </div>
+    <t-card class="card_style">
+      <t-button theme="primary" style="margin-bottom: 10px" @click="reBack">
+        <template #icon><icon-font variant="dashed" name="arrow-left"/></template>
+        back
+      </t-button>
+      <t-form ref="form" class="form_style">
+        <t-form-item label="标题：" labelWidth="50px" label-align="left" name="name">
+          <t-input v-model="formData.name" placeholder="请输入标题" @enter="onEnter"></t-input>
+        </t-form-item>
+      </t-form>
+      <div style="border: 1px solid #ccc;margin-top: 20px">
+        <Toolbar
+          style="border-bottom: 1px solid #ccc"
+          :editor="editorRef"
+          :defaultConfig="toolbarConfig"
+          :mode="mode"
+        />
+        <Editor
+          style="height: calc(100vh - 350px); overflow-y: hidden;"
+          v-model="valueHtml"
+          :defaultConfig="editorConfig"
+          :mode="mode"
+          @onCreated="handleCreated"
+        />
+      </div>
+    </t-card>
   </div>
 </template>
 
@@ -50,6 +57,7 @@ onMounted(() => {
 })
 const toolbarConfig = {}
 const editorConfig = { placeholder: '请输入内容...' }
+let formData=ref({})
 
 // 组件销毁时，也及时销毁编辑器
 onBeforeUnmount(() => {
@@ -58,6 +66,9 @@ onBeforeUnmount(() => {
   editor.destroy()
 })
 
+const onEnter=()=>{
+
+}
 const handleCreated = (editor) => {
   editorRef.value = editor // 记录 editor 实例，重要！
 }
@@ -69,5 +80,11 @@ const reBack=()=>{
 <style scoped>
 .row-container:not(:last-child) {
   margin-bottom: 16px;
+}
+.form_style{
+  margin-top: 15px;
+}
+.card_style{
+  height: calc(100vh - 150px)
 }
 </style>

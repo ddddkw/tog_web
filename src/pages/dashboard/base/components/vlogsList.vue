@@ -52,5 +52,6 @@ const onCurrentChange=(val)=>{
  }
  .listBody{
    height: calc(100vh - 250px);
+   overflow-y: auto;
  }
 </style>
