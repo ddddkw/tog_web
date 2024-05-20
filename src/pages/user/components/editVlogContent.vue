@@ -1,10 +1,13 @@
 <template>
   <div>
     <t-card class="card_style">
-      <t-button theme="primary" style="margin-bottom: 10px" @click="reBack">
-        <template #icon><icon-font variant="dashed" name="arrow-left"/></template>
-        back
-      </t-button>
+      <t-space class="btn_header">
+        <t-button theme="primary" style="margin-bottom: 10px" @click="reBack">
+          <template #icon><icon-font variant="dashed" name="arrow-left"/></template>
+          back
+        </t-button>
+        <t-button theme="primary" @click="saveVlog">保存</t-button>
+      </t-space>
       <t-form ref="form" class="form_style">
         <t-form-item label="标题：" labelWidth="50px" label-align="left" name="name">
           <t-input v-model="formData.name" placeholder="请输入标题" @enter="onEnter"></t-input>
@@ -75,6 +78,10 @@ const handleCreated = (editor) => {
 const reBack=()=>{
   emit('reBack');
 }
+const saveVlog=()=>{
+  const editor = editorRef.value
+  let html = editor.getHtml()
+}
 </script>
 
 <style scoped>
@@ -86,5 +93,9 @@ const reBack=()=>{
 }
 .card_style{
   height: calc(100vh - 150px)
+}
+.btn_header{
+  display: flex;
+  justify-content: space-between;
 }
 </style>

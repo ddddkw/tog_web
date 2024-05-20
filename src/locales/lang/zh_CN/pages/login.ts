@@ -9,7 +9,7 @@ export default {
   register: '注册',
   refresh: '刷新',
   wechatLogin: '使用微信扫一扫登录',
-  accountLogin: '使用账号登录',
+  visitorLogin: '游客进入',
   phoneLogin: '使用手机号登录',
   input: {
     account: '请输入账号',

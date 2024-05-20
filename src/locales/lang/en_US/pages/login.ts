@@ -8,7 +8,7 @@ export default {
   existAccount: 'Exist Account?',
   refresh: 'refresh',
   wechatLogin: 'Login with WeChat',
-  accountLogin: 'Login with Account',
+  visitorLogin: 'Login in visitor',
   phoneLogin: 'Login with Mobile Phone',
   input: {
     account: 'please enter account',

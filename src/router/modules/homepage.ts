@@ -5,9 +5,9 @@ import Layout from '@/layouts/index.vue';
 
 export default [
   {
-    path: '/dashboard',
+    path: '/myVlogs',
     component: Layout,
-    redirect: '/dashboard/base',
+    redirect: '/myVlogs/index',
     name: 'myVlogs',
     meta: {
       title: {
@@ -19,7 +19,7 @@ export default [
     },
     children: [
       {
-        path: 'base',
+        path: 'index',
         name: 'myVlogs',
         component: () => import('@/pages/dashboard/base/index.vue'),
         meta: {
