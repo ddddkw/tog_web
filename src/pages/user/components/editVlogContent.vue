@@ -1,4 +1,4 @@
-<template>
+<template xmlns="http://www.w3.org/1999/html">
   <div>
     <t-card class="card_style">
       <t-space class="btn_header">
@@ -24,6 +24,12 @@
             <t-option v-for="item in options" :key="item.id" :value="item.id" :label="item.tag"></t-option>
           </t-select>
         </t-form-item>
+        <br>
+      </t-form>
+      <t-form class="form_style" >
+        <t-form-item label="摘要：" labelWidth="50px" label-align="left" name="name">
+          <t-textarea v-model="formData.summary"  :autosize="{ minRows: 3, maxRows: 4 }" placeholder="请输入摘要" />
+        </t-form-item>
       </t-form>
       <div style="border: 1px solid #ccc;margin-top: 20px">
         <Toolbar
@@ -33,7 +39,7 @@
           :mode="mode"
         />
         <Editor
-          style="height: calc(100vh - 350px); overflow-y: hidden;"
+          style="height: calc(100vh - 430px); overflow-y: hidden;"
           v-model="valueHtml"
           :defaultConfig="editorConfig"
           :mode="mode"
@@ -56,20 +62,15 @@ import '@wangeditor/editor/dist/css/style.css' // 引入 css
 import {onBeforeUnmount, ref, shallowRef, onMounted, defineComponent} from 'vue'
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
 import {addBlog, getTags} from "@/pages/user/index.ts";
+import {MessagePlugin} from "tdesign-vue-next";
 const emit = defineEmits([ "reBack" ]);
 const mode= "default"
 // 编辑器实例，必须用 shallowRef
 const editorRef = shallowRef()
 
 // 内容 HTML
-const valueHtml = ref('<p>hello</p>')
+const valueHtml = ref('')
 
-// 模拟 ajax 异步获取内容
-onMounted(() => {
-  setTimeout(() => {
-    valueHtml.value = '<p>模拟 Ajax 异步设置内容</p>'
-  }, 1500)
-})
 const toolbarConfig = {}
 const editorConfig = { placeholder: '请输入内容...' }
 const userInfo = JSON.parse(localStorage.getItem("userInfo"))
@@ -113,7 +114,12 @@ const saveVlog=()=>{
   formData.value.userId = userInfo.id
   formData.value.content = html
   formData.value.tagTypes = tags.value.join(',')
-  addBlog(formData.value).send(true)
+  addBlog(formData.value).send(true).then(res=>{
+    if(res.status){
+      MessagePlugin.success("保存成功")
+      emit('reBack');
+    }
+  })
 }
 </script>
 

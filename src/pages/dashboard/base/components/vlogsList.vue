@@ -8,13 +8,13 @@
               <t-link theme="primary" hover="color" style="margin-left: 16px" @click="editHandler"> 编辑 </t-link>
               <t-link theme="primary" hover="color" style="margin-left: 16px" @click="delHandler"> 删除 </t-link>
             </template>
-            <t-list-item-meta :title="item.title" description="列表内容列表内容" />
+            <t-list-item-meta :title="item.title" :description="item.summary" />
           </t-list-item>
         </t-list>
         <t-pagination
           v-model="current"
           v-model:pageSize="pageSize"
-          :total="100"
+          :total="form.total"
           show-jumper
           @change="onChange"
           @page-size-change="onPageSizeChange"
@@ -23,7 +23,7 @@
         />
       </t-card>
       <t-card v-show="showDetail" :bordered="false" hover-shadow class="cardBody">
-        <viewVlog ref="viewVlogRef"/>
+        <viewVlog @reBack="reBack" ref="viewVlogRef"/>
       </t-card>
     </div>
 <!--    <editVlogContent v-if="editVlog" :viewBlog="viewBlog" ref="editVlogContent"/>-->
@@ -56,6 +56,7 @@ let form=ref({
 onMounted(()=>{
   queryVlogsList(form.value).send(true).then(res=>{
     blogList.value = res.data.records
+    form.value.total = res.data.total
   })
 })
 
@@ -67,6 +68,9 @@ const onPageSizeChange=(val)=>{
 }
 const onCurrentChange=(val)=>{
 
+}
+const reBack=()=>{
+  showDetail.value = false
 }
 const viewVlogContent = (item)=>{
   viewBlog.value = item
@@ -86,6 +90,7 @@ const delHandler=()=>{
  }
  .cardBody{
    height: calc(100vh - 150px);
+   overflow-y: auto;
    cursor: pointer;
  }
  .listBody{
