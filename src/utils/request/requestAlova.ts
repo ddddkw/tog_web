@@ -13,8 +13,8 @@ const headers = {'Content-Type': 'application/json;charset=UTF-8'};
 // const timeout = 5000
 
 const AlovaInstance = createAlova({
+  // baseURL: 'http://www.peaceandlove.asia',
   baseURL: 'http://192.168.31.192:8888',
-  // baseURL: 'http://192.168.31.123:8888',
   // baseURL: 'http://192.168.31.185:8888',
   // baseURL: 'http://192.168.31.239:8888',
 
@@ -71,7 +71,7 @@ const AlovaInstance = createAlova({
 
 const Alova = {
   // 这是get请求
-  get(url: string, params: Record<string, any>) {
+  get(url: string, params?: Record<string, any>) {
     return AlovaInstance.Get(url, {
       headers,
       params,
@@ -87,7 +87,8 @@ const Alova = {
       uuid: new Date().getTime(),
       ...params, // 合并传入的参数
     }
-    return AlovaInstance.Post(url, defaultParams,)
+    console.log(defaultParams)
+    return AlovaInstance.Post(url, defaultParams)
   },
 }
 

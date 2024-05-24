@@ -33,6 +33,7 @@
             >
           </t-dropdown>
           <t-dropdown :min-column-width="120" trigger="click">
+            <t-button variant="text">{{userInfo.account}}</t-button>
             <template #dropdown>
               <t-dropdown-menu>
                 <t-dropdown-item class="operations-dropdown-container-item" @click="handleNav('/user/index')">
@@ -65,7 +66,7 @@
 <script setup lang="ts">
 import { ChevronDownIcon, PoweroffIcon, SettingIcon, TranslateIcon, UserCircleIcon } from 'tdesign-icons-vue-next';
 import type { PropType } from 'vue';
-import { computed } from 'vue';
+import {computed, onMounted, ref} from 'vue';
 import { useRouter } from 'vue-router';
 
 import LogoFull from '@/assets/assets-logo-full.svg?component';
@@ -114,6 +115,11 @@ const props = defineProps({
 const router = useRouter();
 const settingStore = useSettingStore();
 const user = useUserStore();
+let userInfo = ref({})
+
+onMounted(()=>{
+  userInfo.value=JSON.parse(localStorage.getItem("userInfo"))
+});
 
 const toggleSettingPanel = () => {
   settingStore.updateConfig({
@@ -155,19 +161,13 @@ const handleNav = (url: string) => {
 };
 
 const handleLogout = () => {
+  localStorage.clear()
   router.push({
     path: '/login',
     query: { redirect: encodeURIComponent(router.currentRoute.value.fullPath) },
   });
 };
 
-// const navToGitHub = () => {
-//   window.open('https://github.com/tencent/tdesign-vue-next-starter');
-// };
-//
-// const navToHelper = () => {
-//   window.open('http://tdesign.tencent.com/starter/docs/get-started');
-// };
 </script>
 <style lang="less" scoped>
 .@{starter-prefix}-header {

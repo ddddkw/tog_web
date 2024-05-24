@@ -51,7 +51,7 @@ import type { FormInstanceFunctions, FormRule, SubmitContext } from 'tdesign-vue
 import { MessagePlugin } from 'tdesign-vue-next';
 import { ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { userLogin } from "./login.ts"
+import {getUserInfoByToken, userLogin} from "./login.ts"
 import { useUserStore } from '@/store';
 import { t } from '@/locales';
 
@@ -84,9 +84,12 @@ const onSubmit = async (ctx: SubmitContext) => {
           localStorage.setItem("token", res.data)
           MessagePlugin.success('登录成功');
           userStore.setToken(res.data)
-          const redirect = route.query.redirect as string;
-          const redirectUrl = redirect ? decodeURIComponent(redirect) : '/myVlogs/index';
-          router.push(redirectUrl);
+          getUserInfoByToken(res.data).then(res=>{
+            localStorage.setItem("userInfo",JSON.stringify(res.data))
+            const redirect = route.query.redirect as string;
+            const redirectUrl = redirect ? decodeURIComponent(redirect) : '/myVlogs/index';
+            router.push(redirectUrl);
+          })
         }
       }).catch((e)=>{
         MessagePlugin.error(e.message);

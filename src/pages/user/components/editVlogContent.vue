@@ -10,18 +10,19 @@
       </t-space>
       <t-form ref="form" class="form_style" layout="inline">
         <t-form-item label="标题：" labelWidth="50px" label-align="left" name="name">
-          <t-input v-model="formData.name" placeholder="请输入标题" @enter="onEnter"></t-input>
+          <t-input v-model="formData.title" placeholder="请输入标题" @enter="onEnter"></t-input>
         </t-form-item>
         <t-form-item label="标签：" labelWidth="50px" label-align="left" name="name">
           <t-select
-            v-model="formData.tags"
+            v-model="tags"
             creatable
             filterable
             multiple
             placeholder="多选支持自定义创建"
-            :options="options"
             style="width: 200px"
-          />
+          >
+            <t-option v-for="item in options" :key="item.id" :value="item.id" :label="item.tag"></t-option>
+          </t-select>
         </t-form-item>
       </t-form>
       <div style="border: 1px solid #ccc;margin-top: 20px">
@@ -54,6 +55,7 @@ import '@wangeditor/editor/dist/css/style.css' // 引入 css
 
 import {onBeforeUnmount, ref, shallowRef, onMounted, defineComponent} from 'vue'
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
+import {addBlog, getTags} from "@/pages/user/index.ts";
 const emit = defineEmits([ "reBack" ]);
 const mode= "default"
 // 编辑器实例，必须用 shallowRef
@@ -70,9 +72,18 @@ onMounted(() => {
 })
 const toolbarConfig = {}
 const editorConfig = { placeholder: '请输入内容...' }
+const userInfo = JSON.parse(localStorage.getItem("userInfo"))
+let tags = ref([])
+const options = ref([])
 let formData=ref({
-  name:'',
-  tags:[]
+  "author": "",
+  "content": "",
+  "createTime": "",
+  "id": 0,
+  "summary": "",
+  "tagTypes": "",
+  "title": "",
+  "userId": ""
 })
 
 // 组件销毁时，也及时销毁编辑器
@@ -81,7 +92,11 @@ onBeforeUnmount(() => {
   if (editor == null) return
   editor.destroy()
 })
-
+onMounted(()=>{
+  getTags().then(res=>{
+    options.value = res.data
+  })
+})
 const onEnter=()=>{
 
 }
@@ -94,6 +109,11 @@ const reBack=()=>{
 const saveVlog=()=>{
   const editor = editorRef.value
   let html = editor.getHtml()
+  formData.value.author = userInfo.account
+  formData.value.userId = userInfo.id
+  formData.value.content = html
+  formData.value.tagTypes = tags.value.join(',')
+  addBlog(formData.value).send(true)
 }
 </script>
 

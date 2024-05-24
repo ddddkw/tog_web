@@ -1,6 +1,3 @@
 import http from '@/utils/request/requestAlova';
-export function queryVlogsList(){
-  http.post("").then(res=>{
+export const queryVlogsList = (param: Record<string, any>) => http.post("togs/getVlogs/QueryList", param)
 
-  })
-}
