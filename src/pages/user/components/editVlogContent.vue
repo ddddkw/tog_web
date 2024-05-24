@@ -8,9 +8,20 @@
         </t-button>
         <t-button theme="primary" @click="saveVlog">保存</t-button>
       </t-space>
-      <t-form ref="form" class="form_style">
+      <t-form ref="form" class="form_style" layout="inline">
         <t-form-item label="标题：" labelWidth="50px" label-align="left" name="name">
           <t-input v-model="formData.name" placeholder="请输入标题" @enter="onEnter"></t-input>
+        </t-form-item>
+        <t-form-item label="标签：" labelWidth="50px" label-align="left" name="name">
+          <t-select
+            v-model="formData.tags"
+            creatable
+            filterable
+            multiple
+            placeholder="多选支持自定义创建"
+            :options="options"
+            style="width: 200px"
+          />
         </t-form-item>
       </t-form>
       <div style="border: 1px solid #ccc;margin-top: 20px">
@@ -33,7 +44,6 @@
 </template>
 
 <script lang="ts">
-import { IconFont  } from 'tdesign-icons-vue-next';
 export default {
   name: 'DashboardBase',
 };
@@ -60,7 +70,10 @@ onMounted(() => {
 })
 const toolbarConfig = {}
 const editorConfig = { placeholder: '请输入内容...' }
-let formData=ref({})
+let formData=ref({
+  name:'',
+  tags:[]
+})
 
 // 组件销毁时，也及时销毁编辑器
 onBeforeUnmount(() => {

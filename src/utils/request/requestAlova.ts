@@ -13,7 +13,7 @@ const headers = {'Content-Type': 'application/json;charset=UTF-8'};
 // const timeout = 5000
 
 const AlovaInstance = createAlova({
-  baseURL: 'http://120.27.229.165:9999',
+  baseURL: 'http://192.168.31.192:8888',
   // baseURL: 'http://192.168.31.123:8888',
   // baseURL: 'http://192.168.31.185:8888',
   // baseURL: 'http://192.168.31.239:8888',
@@ -51,23 +51,23 @@ const AlovaInstance = createAlova({
       }
 
       // 解析的响应数据将传给method实例的transformData钩子函数，这些函数将在后续讲解
-      return json.data;
+      return json;
     },
     onError(error) {
       throw new Error(error)
     }
   }
 })
-function makeUrl(url) {
-  if (
-    url.startsWith('/') ||
-    url.startsWith('http://') ||
-    url.startsWith('https://')
-  ) {
-    return url
-  }
-  return `${baseURL}${url}`
-}
+// function makeUrl(url) {
+//   if (
+//     url.startsWith('/') ||
+//     url.startsWith('http://') ||
+//     url.startsWith('https://')
+//   ) {
+//     return url
+//   }
+//   return `${baseURL}${url}`
+// }
 
 const Alova = {
   // 这是get请求
@@ -89,7 +89,6 @@ const Alova = {
     }
     return AlovaInstance.Post(url, defaultParams,)
   },
-  makeUrl
 }
 
 export default Alova

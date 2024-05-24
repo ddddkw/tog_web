@@ -18,7 +18,12 @@ const defaultRouterList: Array<RouteRecordRaw> = [
   },
   {
     path: '/',
-    redirect: '/dashboard/base',
+    redirect: '/myVlogs/index',
+  },
+  {
+    path: '/vlogsList',
+    name: 'vlogsList',
+    component: () => import('@/pages/vlogsList/index.vue'),
   },
 ];
 // 存放固定路由

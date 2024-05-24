@@ -27,9 +27,6 @@ import TdesignSetting from '@/layouts/setting.vue';
 import Login from './components/Login.vue';
 
 const type = ref('login');
-const switchType = (val: string) => {
-  type.value = val;
-};
 </script>
 
 <style lang="less" scoped>

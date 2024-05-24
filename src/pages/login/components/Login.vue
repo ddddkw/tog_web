@@ -18,7 +18,7 @@
 
       <t-form-item name="password">
         <t-input
-          v-model="formData.password"
+          v-model="formData.passWord"
           size="large"
           :type="showPsw ? 'text' : 'password'"
           clearable
@@ -39,7 +39,7 @@
     </t-form-item>
 
     <div class="switch-container">
-      <span class="tip" @click="()=>$router.push({path:'/myVlogs/index', query: { type: 'visitor' }})">{{
+      <span class="tip" @click="()=>$router.push({path:'/vlogsList', query: { type: 'visitor' }})">{{
         $t('pages.login.visitorLogin')
       }}</span>
     </div>
@@ -51,21 +51,19 @@ import type { FormInstanceFunctions, FormRule, SubmitContext } from 'tdesign-vue
 import { MessagePlugin } from 'tdesign-vue-next';
 import { ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-
+import { userLogin } from "./login.ts"
+import { useUserStore } from '@/store';
 import { t } from '@/locales';
 
-
+const userStore = useUserStore();
 const INITIAL_DATA = {
-  phone: '',
   account: '',
-  password: '',
-  verifyCode: '',
-  checked: false,
+  passWord: '',
 };
 
 const FORM_RULES: Record<string, FormRule[]> = {
   account: [{ required: true, message: t('pages.login.required.account'), type: 'error' }],
-  password: [{ required: true, message: t('pages.login.required.password'), type: 'error' }],
+  passWord: [{ required: true, message: t('pages.login.required.password'), type: 'error' }],
 };
 
 const type = ref('password');
@@ -81,10 +79,18 @@ const route = useRoute();
 const onSubmit = async (ctx: SubmitContext) => {
   if (ctx.validateResult === true) {
     try {
-      MessagePlugin.success('登录成功');
-      const redirect = route.query.redirect as string;
-      const redirectUrl = redirect ? decodeURIComponent(redirect) : '/myVlogs/index';
-      router.push(redirectUrl);
+      userLogin(formData.value).then(res=>{
+        if(res.status){
+          localStorage.setItem("token", res.data)
+          MessagePlugin.success('登录成功');
+          userStore.setToken(res.data)
+          const redirect = route.query.redirect as string;
+          const redirectUrl = redirect ? decodeURIComponent(redirect) : '/myVlogs/index';
+          router.push(redirectUrl);
+        }
+      }).catch((e)=>{
+        MessagePlugin.error(e.message);
+      })
     } catch (e) {
       console.log(e);
       MessagePlugin.error(e.message);
