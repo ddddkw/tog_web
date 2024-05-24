@@ -127,7 +127,7 @@ onMounted(() => {
 });
 
 const goHome = () => {
-  router.push('/dashboard/base');
+  router.push('/user/index');
 };
 
 </script>

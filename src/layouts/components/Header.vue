@@ -2,7 +2,7 @@
   <div :class="layoutCls">
     <t-head-menu :class="menuCls" :theme="menuTheme" expand-type="popup" :value="active">
       <template #logo>
-        <span v-if="showLogo" class="header-logo-container" @click="handleNav('/dashboard/base')">
+        <span v-if="showLogo" class="header-logo-container" @click="handleNav('/user/index')">
           <logo-full class="t-logo" />
         </span>
         <div v-else class="header-operate-left">
