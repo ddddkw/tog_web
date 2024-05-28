@@ -32,19 +32,7 @@
         </t-form-item>
       </t-form>
       <div style="border: 1px solid #ccc;margin-top: 20px">
-        <Toolbar
-          style="border-bottom: 1px solid #ccc"
-          :editor="editorRef"
-          :defaultConfig="toolbarConfig"
-          :mode="mode"
-        />
-        <Editor
-          style="height: calc(100vh - 430px); overflow-y: hidden;"
-          v-model="valueHtml"
-          :defaultConfig="editorConfig"
-          :mode="mode"
-          @onCreated="handleCreated"
-        />
+        <MdEditor style="height: calc(100vh - 430px); overflow-y: hidden;" v-model="content" />
       </div>
     </t-card>
   </div>
@@ -57,25 +45,23 @@ export default {
 </script>
 
 <script setup lang="ts">
-import '@wangeditor/editor/dist/css/style.css' // 引入 css
-
+// import '@wangeditor/editor/dist/css/style.css' // 引入 css
+import { MdEditor } from 'md-editor-v3';
+import 'md-editor-v3/lib/style.css';
 import {onBeforeUnmount, ref, shallowRef, onMounted, defineComponent} from 'vue'
-import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
+// import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
 import {addBlog, getTags} from "@/pages/user/index.ts";
 import {MessagePlugin} from "tdesign-vue-next";
 const emit = defineEmits([ "reBack" ]);
 const mode= "default"
-// 编辑器实例，必须用 shallowRef
-const editorRef = shallowRef()
 
-// 内容 HTML
-const valueHtml = ref('')
 
 const toolbarConfig = {}
-const editorConfig = { placeholder: '请输入内容...' }
 const userInfo = JSON.parse(localStorage.getItem("userInfo"))
 let tags = ref([])
 const options = ref([])
+const content = ref('');
+
 let formData=ref({
   "author": "",
   "content": "",
@@ -89,9 +75,6 @@ let formData=ref({
 
 // 组件销毁时，也及时销毁编辑器
 onBeforeUnmount(() => {
-  const editor = editorRef.value
-  if (editor == null) return
-  editor.destroy()
 })
 onMounted(()=>{
   getTags().then(res=>{
@@ -101,18 +84,13 @@ onMounted(()=>{
 const onEnter=()=>{
 
 }
-const handleCreated = (editor) => {
-  editorRef.value = editor // 记录 editor 实例，重要！
-}
 const reBack=()=>{
   emit('reBack');
 }
 const saveVlog=()=>{
-  const editor = editorRef.value
-  let html = editor.getHtml()
   formData.value.author = userInfo.account
+  formData.value.content = content.value
   formData.value.userId = userInfo.id
-  formData.value.content = html
   formData.value.tagTypes = tags.value.join(',')
   addBlog(formData.value).send(true).then(res=>{
     if(res.status){
