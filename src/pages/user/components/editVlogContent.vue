@@ -88,6 +88,9 @@ const reBack=()=>{
   emit('reBack');
 }
 const saveVlog=()=>{
+  if(!formData.value.content||!formData.value.title||!formData.value.summary||!formData.value.tagTypes){
+    MessagePlugin.warning("缺少必输内容")
+  }
   formData.value.author = userInfo.account
   formData.value.content = content.value
   formData.value.userId = userInfo.id

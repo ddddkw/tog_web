@@ -21,7 +21,7 @@ router.beforeEach(async (to, from, next) => {
     next()
     NProgress.done();
   } else {
-    if (userStore.token&&userStore.token!=="main_token") {
+    if (userStore.token&&userStore.token!=="main_token"&&localStorage.getItem("userInfo")) {
         next();
     } else {
       if (whiteListRouters.indexOf(to.path) !== -1) {
