@@ -12,7 +12,7 @@
       </div>
     </div>
     <div class="view_body">
-      <!--      <MdCatalog :editorId="id" :scrollElement="scrollElement" />-->
+<!--      <MdCatalog :editorId="id" :scrollElement="scrollElement" />-->
       <MdPreview :editorId="id" :modelValue="viewBlog.content" />
     </div>
   </div>
@@ -36,6 +36,7 @@ const reBack=()=>{
   emit('reBack');
 }
 const init = (val)=>{
+  tagsList.value=[]
   viewBlog.value = val
   getTags().send(true).then(res=>{
     options.value =  viewBlog.value.tagTypes.split(',').map(Number)

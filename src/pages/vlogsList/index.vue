@@ -73,6 +73,7 @@ onMounted(()=>{
       let tagsOptions = ref([])
       let options = ref([])
       blogsList.value.forEach(item=>{
+        item.tagsList=[]
         options.value =  item.tagTypes.split(',').map(Number)
         res.data.forEach(item1=>{
           if(options.value.includes(+item1.id)){
