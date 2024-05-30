@@ -54,6 +54,7 @@ let form=ref({
 
 
 onMounted(()=>{
+  form.value.userId=JSON.parse(localStorage.getItem("userInfo")).id
   queryVlogsList(form.value).send(true).then(res=>{
     blogList.value = res.data.records
     form.value.total = res.data.total
