@@ -38,6 +38,7 @@ const reBack=()=>{
 const init = (val)=>{
   viewBlog.value = val
   getTags().send(true).then(res=>{
+    tagsList.value=[]
     options.value =  viewBlog.value.tagTypes.split(',').map(Number)
     console.log(res.data.value)
     res.data.forEach(item=>{
