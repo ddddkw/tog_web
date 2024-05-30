@@ -13,8 +13,8 @@ const headers = {'Content-Type': 'application/json;charset=UTF-8'};
 // const timeout = 5000
 
 const AlovaInstance = createAlova({
-  baseURL: 'http://www.peaceandlove.asia',
-  // baseURL: 'http://192.168.31.192:8888',
+  // baseURL: 'http://www.peaceandlove.asia',
+  baseURL: 'http://192.168.31.192:8888',
   // baseURL: 'http://192.168.31.185:8888',
   // baseURL: 'http://192.168.31.239:8888',
 

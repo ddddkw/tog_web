@@ -3,7 +3,7 @@
     <t-layout>
       <t-header style="background-color: #02a6f2">
         <div class="vlog_head">
-          <div class="left_title">
+          <div class="left_title" @click="requery">
             Tog's Blog
           </div>
           <div class="right_search">
@@ -15,8 +15,8 @@
       <div>
         <t-layout v-if="!showDetail" class="vlog_layout">
           <t-aside class="vlog_aside">
-            <t-menu>
-              <t-menu-item v-for="item in tagsList" :value="item.id">
+            <t-menu :key="menuKey">
+              <t-menu-item v-for="item in tagsList" :value="item.id" @click="queryByTag(item)">
                 <template #icon>
                   <t-icon name="root-list"/>
                 </template>
@@ -35,6 +35,14 @@
                 </template>
               </t-list-item>
             </t-list>
+            <t-pagination
+              style="margin-top: 10px"
+              v-model="form.pageIndex"
+              v-model:pageSize="form.pageSize"
+              :total="form.total"
+              @page-size-change="onPageSizeChange"
+              @current-change="onCurrentChange"
+            />
           </t-content>
         </t-layout>
         <div v-show="showDetail" >
@@ -60,6 +68,7 @@ let form=ref({
   "total": 0,
   "userId": ""
 })
+let menuKey=ref(0)
 let showDetail = ref(false)
 const previewBlogRef = ref(null)
 let tagsList = ref([])
@@ -70,13 +79,13 @@ onMounted(()=>{
     form.value.total = res.data.total
     getTags().send(true).then(res=>{
       tagsList.value = res.data
-      let tagsOptions = ref([])
       let options = ref([])
       blogsList.value.forEach(item=>{
+        let tagsOptions = ref([])
         item.tagsList=[]
-        options.value =  item.tagTypes.split(',').map(Number)
+        options.value =  item.tagTypes.split(',').map(String)
         res.data.forEach(item1=>{
-          if(options.value.includes(+item1.id)&&!tagsOptions.value.includes(item1.tag)){
+          if(options.value.includes(item1.id)&&!tagsOptions.value.includes(item1.tag)){
             tagsOptions.value.push(item1.tag)
           }
         })
@@ -91,6 +100,39 @@ let viewBlog = (item)=>{
 }
 const reBack = ()=>{
   showDetail.value = false
+}
+const queryByTag= (item)=>{
+  form.value.tagType = item.id
+  queryData()
+}
+const requery=()=>{
+  form.value.tagType =""
+  queryData()
+  menuKey.value++
+}
+const queryData=()=>{
+  queryVlogsList(form.value).send(true).then(res=>{
+    blogsList.value = res.data.records
+    form.value.total = res.data.total
+    let options = ref([])
+    blogsList.value.forEach(item=>{
+      let tagsOptions = ref([])
+      item.tagsList=[]
+      options.value =  item.tagTypes.split(',').map(String)
+      tagsList.value.forEach(item1=>{
+        if(options.value.includes(item1.id)&&!tagsOptions.value.includes(item1.tag)){
+          tagsOptions.value.push(item1.tag)
+        }
+      })
+      item.tagsList =tagsOptions.value
+    })
+  })
+}
+const onCurrentChange=(val)=>{
+  queryData()
+}
+const onPageSizeChange=(val)=>{
+  queryData()
 }
 </script>
 <style lang="less" scoped>
