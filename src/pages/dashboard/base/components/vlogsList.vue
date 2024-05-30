@@ -12,11 +12,10 @@
           </t-list-item>
         </t-list>
         <t-pagination
-          v-model="current"
-          v-model:pageSize="pageSize"
+          v-model="form.pageIndex"
+          v-model:pageSize="form.pageSize"
           :total="form.total"
           show-jumper
-          @change="onChange"
           @page-size-change="onPageSizeChange"
           @current-change="onCurrentChange"
           class="pagination"
@@ -55,20 +54,19 @@ let form=ref({
 
 onMounted(()=>{
   form.value.userId=JSON.parse(localStorage.getItem("userInfo")).id
+  queryData()
+})
+const queryData=()=>{
   queryVlogsList(form.value).send(true).then(res=>{
     blogList.value = res.data.records
     form.value.total = res.data.total
   })
-})
-
-const onChange=(val)=>{
-
 }
 const onPageSizeChange=(val)=>{
-
+  queryData()
 }
 const onCurrentChange=(val)=>{
-
+  queryData()
 }
 const reBack=()=>{
   showDetail.value = false
@@ -83,10 +81,7 @@ const editHandler=()=>{
 }
 const delHandler=(item)=>{
   deleteVlog({id: item.id}).send(true).then(()=>{
-    queryVlogsList(form.value).send(true).then(res=>{
-      blogList.value = res.data.records
-      form.value.total = res.data.total
-    })
+    queryData()
   })
 }
 </script>
