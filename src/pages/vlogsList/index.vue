@@ -76,7 +76,7 @@ onMounted(()=>{
         item.tagsList=[]
         options.value =  item.tagTypes.split(',').map(Number)
         res.data.forEach(item1=>{
-          if(options.value.includes(+item1.id)){
+          if(options.value.includes(+item1.id)&&!tagsOptions.value.includes(item1.tag)){
             tagsOptions.value.push(item1.tag)
           }
         })
