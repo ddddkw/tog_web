@@ -24,7 +24,7 @@ router.beforeEach(async (to, from, next) => {
     if (userStore.token&&userStore.token!=="main_token"&&localStorage.getItem("userInfo")) {
         next();
     } else {
-      if (to.path === '/vlogsList') {
+      if (to.path === '/vlogsList'||to.path === '/login') {
         next();
       } else {
         next({
