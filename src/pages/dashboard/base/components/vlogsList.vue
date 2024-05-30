@@ -3,12 +3,12 @@
     <div v-if="!editVlog" >
       <t-card v-if="!showDetail" :bordered="false" hover-shadow class="cardBody">
         <t-list :split="true" class="listBody">
-          <t-list-item v-for="item in blogList" @click="viewVlogContent(item)">
+          <t-list-item v-for="item in blogList">
             <template #action>
               <t-link theme="primary" hover="color" style="margin-left: 16px" @click="editHandler"> 编辑 </t-link>
-              <t-link theme="primary" hover="color" style="margin-left: 16px" @click="delHandler"> 删除 </t-link>
+              <t-link theme="primary" hover="color" style="margin-left: 16px" @click="delHandler(item)"> 删除 </t-link>
             </template>
-            <t-list-item-meta :title="item.title" :description="item.summary" />
+            <t-list-item-meta :title="item.title" @click="viewVlogContent(item)" :description="item.summary" />
           </t-list-item>
         </t-list>
         <t-pagination
@@ -30,7 +30,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import {queryVlogsList} from "./vlogPage"
+import {queryVlogsList, deleteVlog} from "./vlogPage"
 import { ref,onMounted } from "vue"
 import viewVlog from "./viewVlog.vue"
 
@@ -80,8 +80,13 @@ const viewVlogContent = (item)=>{
 const editHandler=()=>{
   editVlog.value = true
 }
-const delHandler=()=>{
-
+const delHandler=(item)=>{
+  deleteVlog({id: item.id}).send(true).then(()=>{
+    queryVlogsList(form.value).send(true).then(res=>{
+      blogList.value = res.data.records
+      form.value.total = res.data.total
+    })
+  })
 }
 </script>
 <style scoped>

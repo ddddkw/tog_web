@@ -20,6 +20,7 @@
             multiple
             placeholder="多选支持自定义创建"
             style="width: 200px"
+            @create="createOptions"
           >
             <t-option v-for="item in options" :key="item.id" :value="item.id" :label="item.tag"></t-option>
           </t-select>
@@ -50,7 +51,7 @@ import { MdEditor } from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
 import {onBeforeUnmount, ref, shallowRef, onMounted, defineComponent} from 'vue'
 // import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
-import {addBlog, getTags} from "@/pages/user/index.ts";
+import {addBlog, getTags, addTags} from "@/pages/user/index.ts";
 import {MessagePlugin} from "tdesign-vue-next";
 const emit = defineEmits([ "reBack" ]);
 const mode= "default"
@@ -77,7 +78,7 @@ let formData=ref({
 onBeforeUnmount(() => {
 })
 onMounted(()=>{
-  getTags().then(res=>{
+  getTags().send(true).then(res=>{
     options.value = res.data
   })
 })
@@ -88,13 +89,13 @@ const reBack=()=>{
   emit('reBack');
 }
 const saveVlog=()=>{
-  if(!formData.value.content||!formData.value.title||!formData.value.summary||!formData.value.tagTypes){
-    MessagePlugin.warning("缺少必输内容")
-  }
   formData.value.author = userInfo.account
   formData.value.content = content.value
   formData.value.userId = userInfo.id
   formData.value.tagTypes = tags.value.join(',')
+  if(!formData.value.content||!formData.value.title||!formData.value.summary||!formData.value.tagTypes){
+    return MessagePlugin.warning("缺少必输内容")
+  }
   addBlog(formData.value).send(true).then(res=>{
     if(res.status){
       MessagePlugin.success("保存成功")
@@ -102,6 +103,18 @@ const saveVlog=()=>{
     }
   })
 }
+const createOptions = (val) => {
+  options.value.push({
+    label: `${val}`,
+    value: val,
+  });
+  addTags({tag: val}).then(res=>{
+    tags.value=[]
+    getTags().send(true).then(res=>{
+      options.value = res.data
+    })
+  })
+};
 </script>
 
 <style scoped>

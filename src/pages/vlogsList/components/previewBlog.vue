@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="vlog_layout">
     <t-button variant="text" theme="primary" style="margin-bottom: 10px" @click="reBack">
       <template #icon> <ArrowLeftIcon /></template>
       back
@@ -12,7 +12,7 @@
       </div>
     </div>
     <div class="view_body">
-<!--      <MdCatalog :editorId="id" :scrollElement="scrollElement" />-->
+      <!--      <MdCatalog :editorId="id" :scrollElement="scrollElement" />-->
       <MdPreview :editorId="id" :modelValue="viewBlog.content" />
     </div>
   </div>
@@ -39,7 +39,6 @@ const init = (val)=>{
   viewBlog.value = val
   getTags().send(true).then(res=>{
     options.value =  viewBlog.value.tagTypes.split(',').map(Number)
-    console.log(res.data.value)
     res.data.forEach(item=>{
       if(options.value.includes(+item.id)){
         tagsList.value.push(item.tag)
@@ -53,5 +52,5 @@ onMounted(()=>{
 })
 </script>
 <style lang="less" scoped>
-@import './vlogs.less';
+@import '../index.less';
 </style>

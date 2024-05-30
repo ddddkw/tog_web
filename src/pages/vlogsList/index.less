@@ -12,6 +12,7 @@
   width: 70%;
   margin: 0 auto;
   background-color: white;
+  overflow-y: auto;
 }
 .vlog_body{
 }
@@ -27,5 +28,38 @@
   background-color: black;
 }
 .vlog_aside{
-  width: 300px;
+  width: 150px;
 }
+.tags_sty{
+  margin-right: 15px;
+}
+:deep(.t-default-menu){
+  width: auto!important;
+}
+.blog_item{
+  cursor: pointer;
+}
+.viewBlog{
+  overflow-y: auto;
+}
+.view_header{
+  margin-left: 20px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #6b6969;
+  .title{
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .author{
+    margin-top: 10px;
+    font-size: 16px;
+  }
+}
+.tags_sty{
+  margin-right: 15px;
+}
+.view_body{
+  display: flex;
+  overflow-y: auto;
+}
+
