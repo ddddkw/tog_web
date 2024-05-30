@@ -82,6 +82,11 @@ onMounted(()=>{
     options.value = res.data
   })
 })
+const setData=(val)=>{
+  formData.value = val
+  tags.value = val.tagTypes.split(',').map(String)
+  content.value = val.content
+}
 const onEnter=()=>{
 
 }
@@ -115,6 +120,7 @@ const createOptions = (val) => {
     })
   })
 };
+defineExpose({setData})
 </script>
 
 <style scoped>
