@@ -8,6 +8,7 @@
           </div>
           <div class="right_search">
             <t-input v-model="searchInput" placeholder="搜索"/>
+            <t-button variant="text" style="color: white" @click="$router.push('/login')">去登录</t-button>
           </div>
         </div>
       </t-header>

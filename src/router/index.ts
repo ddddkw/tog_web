@@ -18,7 +18,7 @@ const defaultRouterList: Array<RouteRecordRaw> = [
   },
   {
     path: '/',
-    redirect: '/myVlogs/index',
+    redirect: '/vlogsList',
   },
   {
     path: '/vlogsList',
