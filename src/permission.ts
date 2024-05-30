@@ -24,12 +24,11 @@ router.beforeEach(async (to, from, next) => {
     if (userStore.token&&userStore.token!=="main_token"&&localStorage.getItem("userInfo")) {
         next();
     } else {
-      if (whiteListRouters.indexOf(to.path) !== -1) {
+      if (to.path === '/vlogsList') {
         next();
       } else {
         next({
-          path: '/login',
-          query: { redirect: encodeURIComponent(to.fullPath) },
+          path: '/vlogsList',
         });
       }
       NProgress.done();
