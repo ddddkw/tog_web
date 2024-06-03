@@ -20,7 +20,7 @@ const AlovaInstance = createAlova({
 
 
 
-
+  localCache: null,
   requestAdapter: GlobalFetch(),
   shareRequest: true,
 
