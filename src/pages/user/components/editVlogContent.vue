@@ -33,7 +33,7 @@
         </t-form-item>
       </t-form>
       <div style="border: 1px solid #ccc;margin-top: 20px">
-        <MdEditor style="height: calc(100vh - 430px); overflow-y: hidden;" v-model="content" />
+        <MdEditor style="height: calc(100vh - 430px);overflow-y: hidden;" :customIcon="CustomIcon" v-model="content" :showToolbarName="true"/>
       </div>
     </t-card>
   </div>
@@ -48,6 +48,7 @@ export default {
 <script setup lang="ts">
 // import '@wangeditor/editor/dist/css/style.css' // 引入 css
 import { MdEditor } from 'md-editor-v3';
+import type { CustomIcon } from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
 import {onBeforeUnmount, ref, shallowRef, onMounted, defineComponent} from 'vue'
 // import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
@@ -67,7 +68,7 @@ let formData=ref({
   "author": "",
   "content": "",
   "createTime": "",
-  "id": 0,
+  "id": "",
   "summary": "",
   "tagTypes": "",
   "title": "",
